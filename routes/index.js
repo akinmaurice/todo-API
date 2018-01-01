@@ -21,7 +21,7 @@ router.get(
   '/todos',
   authController.isLoggedIn,
   authController.getUserId,
-  appController.getDataPages,
+  appController.getAllTodos,
 );
 
 /*
@@ -67,8 +67,8 @@ router.get(
 /*
 Route to Update Todo
 */
-router.post(
-  '/todo/updateTodo',
+router.put(
+  '/todo/:id',
   authController.isLoggedIn,
   authController.getUserId,
   appController.validateUpdateTodo,
@@ -80,7 +80,7 @@ router.post(
 Route to Delete  Todo
 */
 router.delete(
-  '/todo/deleteTodo',
+  '/todo/:id',
   authController.isLoggedIn,
   authController.getUserId,
   appController.deleteTodo,

@@ -12,7 +12,7 @@ exports.getHome = (req, res) => {
 /*
 Controller to get the todo List
 */
-exports.getDataPages = async (req, res) => {
+exports.getAllTodos = async (req, res) => {
   const todos = await Todo.find({ author: req.body.author });
   const user = {
     email: req.body.user.email,
@@ -56,7 +56,6 @@ exports.getTodoBySlug = async (req, res) => {
 // Middleware to verify user input to Update Todo
 exports.validateUpdateTodo = (req, res, next) => {
   req.checkBody('title', 'Todo Title Cannot be Empty!').notEmpty();
-  req.checkBody('id', 'No Todo Id Specified').notEmpty();
   const errors = req.validationErrors();
   if (errors) {
     res.json({ status: 406, errors, message: errors[0].msg });
@@ -69,7 +68,7 @@ exports.validateUpdateTodo = (req, res, next) => {
 exports.updateTodo = async (req, res) => {
   // Find and Update the Todo by ID
   const todo = await Todo.findOneAndUpdate(
-    { _id: req.body.id, author: req.body.author },
+    { _id: req.params.id, author: req.body.author },
     req.body,
     { new: true, /* return the updated Todo */ runValidatos: true },
   ).exec();
@@ -79,7 +78,7 @@ exports.updateTodo = async (req, res) => {
 // Controller to Delete tasks by ID sent in Body
 exports.deleteTodo = async (req, res) => {
   // Find and Update the Todo
-  await Todo.findOneAndRemove({ _id: req.body.id, author: req.body.author }).exec();
+  await Todo.findOneAndRemove({ _id: req.params.id, author: req.body.author }).exec();
   res.json({ status: 200, message: 'Todo Deleted' });
 };
 
