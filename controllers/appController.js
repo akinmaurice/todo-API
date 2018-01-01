@@ -83,17 +83,3 @@ exports.deleteTodo = async (req, res) => {
   res.json({ status: 200, message: 'Todo Deleted' });
 };
 
-// COntroller to add Activity to Tasks
-exports.addActivity = async (req, res) => {
-  const todo = await Todo.update(
-    { _id: req.body.id, author: req.body.author },
-    { $addToSet: { activities: req.body.activity } }, (err, data) => {
-      if (err) {
-        res.json({ status: 404, message: 'Something Happened!' });
-      } else {
-        console.log(todo);
-        res.json({ status: 200, data });
-      }
-    },
-  );
-};

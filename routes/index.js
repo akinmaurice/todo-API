@@ -79,21 +79,11 @@ router.post(
 /*
 Route to Delete  Todo
 */
-router.post(
+router.delete(
   '/todo/deleteTodo',
   authController.isLoggedIn,
   authController.getUserId,
   appController.deleteTodo,
-);
-
-/*
-Router to Add activities to todo
-*/
-router.post(
-  '/todo/addActivity',
-  authController.isLoggedIn,
-  authController.getUserId,
-  appController.addActivity,
 );
 
 module.exports = router;
