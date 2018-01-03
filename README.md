@@ -39,6 +39,8 @@ Most endpoints require a token for authentication. The API call should have the 
 | GET /todo/:slug                         | Get single todo                      |
 | PUT /todo/:id                           | Update this todo                     |
 | DELETE /todo/:id                        | Delete this single todo              |
+| POST /todo/add/:id                      | Create Todo Activity                 |
+| DELETE /todo/delete/:id                 | Delete Activity from Todo            |
 
 
 ## Responses

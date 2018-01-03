@@ -86,4 +86,27 @@ router.delete(
   appController.deleteTodo,
 );
 
+/*
+Route to add activities to todo
+*/
+router.post(
+  '/todo/add/:id',
+  authController.isLoggedIn,
+  authController.getUserId,
+  appController.verifyActivity,
+  appController.addActivities,
+);
+
+/*
+Route to Delete activities from todo
+*/
+router.delete(
+  '/todo/delete/:id',
+  authController.isLoggedIn,
+  authController.getUserId,
+  appController.verifyActivity,
+  appController.deleteActivity,
+);
+
+
 module.exports = router;

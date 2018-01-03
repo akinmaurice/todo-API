@@ -82,3 +82,46 @@ exports.deleteTodo = async (req, res) => {
   res.json({ status: 200, message: 'Todo Deleted' });
 };
 
+// Middle ware to verify input to add activity
+exports.verifyActivity = (req, res, next) => {
+  req.checkBody('activity', 'Activity Cannot be Empty!').notEmpty();
+  const errors = req.validationErrors();
+  if (errors) {
+    res.json({ status: 406, errors, message: errors[0].msg });
+    return;
+  }
+  next();
+};
+
+// Controller to add new activities to todo
+exports.addActivities = async (req, res) => {
+  await Todo.findOneAndUpdate(
+    { _id: req.params.id, author: req.body.author },
+    { $push: { activities: req.body.activity } },
+    { new: true },
+    (err, doc) => {
+      if (err) {
+        return res.json({ status: 401, message: 'Could not add acitivity' });
+      }
+      const todo = doc;
+      return res.json({ status: 200, message: 'Activity Added to the Todo', todo });
+    },
+  );
+};
+
+// Controller to Delete Activities from todo
+exports.deleteActivity = async (req, res) => {
+  await Todo.findOneAndUpdate(
+    { _id: req.params.id, author: req.body.author },
+    { $pop: { activities: req.body.activity } },
+    { new: true },
+    (err, doc) => {
+      if (err) {
+        return res.json({ status: 401, message: 'Could not Remove acitivity' });
+      }
+      const todo = doc;
+      return res.json({ status: 200, message: 'Activity Removed from Todo', todo });
+    },
+  );
+};
+
