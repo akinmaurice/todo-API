@@ -45,8 +45,10 @@ exports.checkUserExists = async (req, res, next) => {
 };
 
 // Middleware Controller to regsiter user
-exports.registerUser = async (req, res, next) => {
+exports.registerUser = async (req, res) => {
   await (new User(req.body)).save();
-  next();
+  res.json({
+    status: 200, message: 'Registration Successful',
+  });
 };
 

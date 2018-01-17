@@ -32,7 +32,6 @@ router.post(
   userController.validateRegister,
   catchErrors(userController.checkUserExists),
   catchErrors(userController.registerUser),
-  catchErrors(authController.login),
 );
 
 /*
