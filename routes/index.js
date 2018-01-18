@@ -49,17 +49,17 @@ Route to Create New Todo
 router.post(
   '/todo/createTodo',
   authController.isLoggedIn,
-  authController.getUserId,
+  catchErrors(authController.getUserId),
   appController.validateCreateTodo,
-  appController.addNewTodo,
+  catchErrors(appController.addNewTodo),
 );
 
 // Route to get TOdo by Slug
 router.get(
   '/todo/:slug',
   authController.isLoggedIn,
-  authController.getUserId,
-  appController.getTodoBySlug,
+  catchErrors(authController.getUserId),
+  catchErrors(appController.getTodoBySlug),
 );
 
 
@@ -69,9 +69,9 @@ Route to Update Todo
 router.put(
   '/todo/:id',
   authController.isLoggedIn,
-  authController.getUserId,
+  catchErrors(authController.getUserId),
   appController.validateUpdateTodo,
-  appController.updateTodo,
+  catchErrors(appController.updateTodo),
 );
 
 
@@ -91,9 +91,9 @@ Route to add activities to todo
 router.post(
   '/todo/add/:id',
   authController.isLoggedIn,
-  authController.getUserId,
-  appController.verifyActivity,
-  appController.addActivities,
+  catchErrors(authController.getUserId),
+  catchErrors(appController.verifyActivity),
+  catchErrors(appController.addActivities),
 );
 
 /*
@@ -102,9 +102,9 @@ Route to Delete activities from todo
 router.delete(
   '/todo/delete/:id',
   authController.isLoggedIn,
-  authController.getUserId,
-  appController.verifyActivity,
-  appController.deleteActivity,
+  catchErrors(authController.getUserId),
+  catchErrors(appController.verifyActivity),
+  catchErrors(appController.deleteActivity),
 );
 
 
